@@ -8,4 +8,75 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="toolBarStyle" parent="">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="tv_toolbar_heading">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="tv_bg_blue_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">@drawable/bg_item_blue_rectangle</item>
+    </style>
+
+    <style name="tv_black_title">
+        <item name="android:textColor">@color/black_title</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">left|center_horizontal</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="tv_faint_black_sub_title">
+        <item name="android:textColor">@color/black_title</item>
+        <item name="android:textColorHint">@color/black_hint</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">left|center_horizontal</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/bg_item_white_rectangle</item>
+    </style>
+
+    <style name="tv_blue_title">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="tv_white_nav_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="vw_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.6dp</item>
+        <item name="android:background">@color/faint_white</item>
+    </style>
+    <style name="tv_social_login">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
