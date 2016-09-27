@@ -51,4 +51,6 @@
     <string name="logout">Logout</string>
     <string name="email_id">Email Id</string>
     <string name="or">OR</string>
+    <string name="msg_already_register">User is already register. Please Sign In with different credentials.</string>
+    <string name="login_fail">Invalid credentials</string>
 </resources>

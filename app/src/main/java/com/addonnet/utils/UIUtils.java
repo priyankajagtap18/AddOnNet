@@ -6,29 +6,12 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.addonnet.R;
-import com.addonnet.constants.AppConstants;
 
 /**
  * Created by PriyankaJ on 09-03-2016.
  */
 public class UIUtils {
     private ProgressDialog pgdialog;
-
-    /**
-     * Show progress dialog
-     *
-     * @param message
-     */
-    public void showProgressDialog(String message) {
-        if (pgdialog != null)
-            if (pgdialog.isShowing()) {
-                pgdialog.dismiss();
-                pgdialog.cancel();
-            }
-        pgdialog = ProgressDialog.show(AppConstants.getInstance().getContext(),
-                AppConstants.getInstance().getContext().getString(R.string.app_name), message, true);
-
-    }
 
     /**
      * Show progress dialog

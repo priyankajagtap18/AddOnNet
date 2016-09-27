@@ -2,6 +2,7 @@ package com.addonnet.activities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -183,6 +184,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
                 public void onClick(View v) {
                     mLogoutDialog.dismiss();
                     PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, false);
+                    startActivity(new Intent(MainAct.this, LoginAct.class));
                     finish();
                 }
             });

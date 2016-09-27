@@ -9,10 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.addonnet.R;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.entities.UserDetail;
+import com.addonnet.entities.UserDetailsWrapper;
+import com.addonnet.sync.SyncListener;
+import com.addonnet.sync.SyncManager;
+import com.addonnet.utils.PreferenceHandler;
+import com.addonnet.utils.UIUtils;
 import com.addonnet.utils.Utilities;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
@@ -28,6 +36,7 @@ import com.sromku.simple.fb.entities.Profile;
 import com.sromku.simple.fb.listeners.OnLoginListener;
 import com.sromku.simple.fb.listeners.OnProfileListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +45,7 @@ import java.util.List;
 public class LoginAct extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private Context mContext;
-    private TextView mTvLogin, mTvForgetPwd;
+    private TextView mTvLogin, mTvForgetPwd, mTvSignUp;
     private LinearLayout mLlFbLogin, mLlGoogleLogin;
     private SimpleFacebook mSimpleFacebook;
     private SimpleFacebookConfiguration configuration;
@@ -44,6 +53,12 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
     public static Activity mLoginActivity;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
+    private Utilities mUtilities;
+    private ArrayList<UserDetailsWrapper> mArrLDetail;
+    private String strEmail, strPwd;
+    private EditText mEtEmail, mEtPwd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,14 +66,19 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         setContentView(R.layout.login);
         bindControls();
         setListeners();
+        initSyncListener();
     }
 
     private void bindControls() {
         mContext = this;
         mLoginActivity = LoginAct.this;
+        mUtilities = new Utilities(mContext);
         FacebookSdk.sdkInitialize(mContext);
         mTvLogin = (TextView) findViewById(R.id.tv_login);
         mTvForgetPwd = (TextView) findViewById(R.id.tv_forget_pwd);
+        mTvSignUp = (TextView) findViewById(R.id.tv_signup);
+        mEtEmail = (EditText) findViewById(R.id.et_email);
+        mEtPwd = (EditText) findViewById(R.id.et_password);
         mLlFbLogin = (LinearLayout) findViewById(R.id.ll_fb_login);
         mLlGoogleLogin = (LinearLayout) findViewById(R.id.ll_google_login);
         mSimpleFacebook = SimpleFacebook.getInstance(this);
@@ -72,6 +92,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     private void setListeners() {
         mTvLogin.setOnClickListener(this);
         mTvForgetPwd.setOnClickListener(this);
+        mTvSignUp.setOnClickListener(this);
         mLlFbLogin.setOnClickListener(this);
         mLlGoogleLogin.setOnClickListener(this);
     }
@@ -80,7 +101,9 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
-                startActivity(new Intent(LoginAct.this, SignUpAct.class));
+                if (validateFields()) {
+                    doLogin();
+                }
                 break;
             case R.id.ll_fb_login:
                 doFacebookLogin();
@@ -88,6 +111,84 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             case R.id.ll_google_login:
                 doGooglePlusLogin();
                 break;
+            case R.id.tv_signup:
+                startActivity(new Intent(LoginAct.this, SignUpAct.class));
+                break;
+        }
+    }
+
+    private void initSyncListener() {
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                mUtilities.hideProgressDialog();
+                switch (taskId) {
+                    case SyncManager.LOGIN:
+                        if (arrResult != null && arrResult.size() > 0) {
+                            mArrLDetail = (ArrayList<UserDetailsWrapper>) arrResult;
+                            showStatus(mArrLDetail.get(0).getUserDetails().get(0));
+                        } else {
+                            onSyncFailure(taskId, getString(R.string.server_error));
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                mUtilities.hideProgressDialog();
+                UIUtils.showToast(LoginAct.this, getString(R.string.server_error));
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
+    }
+
+    private void showStatus(UserDetail userDetail) {
+        if (userDetail.getStatus().equalsIgnoreCase("true")) {
+            UIUtils.showToast(this, getString(R.string.login_success));
+            PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
+            startActivity(new Intent(LoginAct.this, MainAct.class));
+            finish();
+        } else {
+            UIUtils.showToast(this, getString(R.string.login_fail));
+        }
+
+    }
+
+    private boolean validateFields() {
+        boolean isValid;
+        strPwd = mEtPwd.getText().toString().trim();
+        strEmail = mEtEmail.getText().toString().trim();
+
+        if (Utilities.isEditTextEmpty(mEtEmail)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_empty_email));
+        } else if (Utilities.isEditTextEmpty(mEtPwd)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_empty_password));
+        } else if (!Utilities.isEmailValid(strEmail)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_email_error));
+        } else {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    private void doLogin() {
+        if (mUtilities.isOnline()) {
+            mUtilities.hideKeyboard(mEtEmail);
+            mArrLDetail = new ArrayList<>();
+            mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
+            syncManager = new SyncManager(this, SyncManager.LOGIN, syncListener);
+            syncManager.postAuthentication(strEmail, strPwd);
+        } else {
+            mUtilities.hideProgressDialog();
+            UIUtils.showToast(this, getString(R.string.network_error_msg));
         }
     }
 
@@ -110,6 +211,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     private void doFacebookLogin() {
         try {
+            mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
             if (!mSimpleFacebook.isLogin()) {
                 mSimpleFacebook.login(new OnLoginListener() {
                     @Override
@@ -149,7 +251,10 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             mSimpleFacebook.getProfile(properties, new OnProfileListener() {
                 @Override
                 public void onComplete(Profile profile) {
-                    startActivity(new Intent(LoginAct.this, SignUpAct.class));
+                    mUtilities.hideProgressDialog();
+                    PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
+                    startActivity(new Intent(LoginAct.this, MainAct.class));
+                    finish();
                 }
             });
         } catch (Exception e) {
@@ -182,17 +287,21 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     private void getGooglePlusProfile(GoogleSignInResult result) {
         Log.d("googleplus", "getGooglePlusProfile:" + result.getStatus());
+        mUtilities.hideProgressDialog();
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
-            startActivity(new Intent(LoginAct.this, SignUpAct.class));
             System.out.println(account.getDisplayName() + "\t" + account.getEmail() + "\t" + account.getGivenName());
+            PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
+            startActivity(new Intent(LoginAct.this, MainAct.class));
+            finish();
         } else {
             Utilities.showToast(mContext, getString(R.string.server_error));
         }
     }
 
     private void doGooglePlusLogin() {
+        mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }

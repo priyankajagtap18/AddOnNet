@@ -3,8 +3,9 @@ package com.addonnet.sync;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.addonnet.entities.Login;
-import com.addonnet.entities.SignUp;
+import com.addonnet.constants.AppUrls;
+import com.addonnet.entities.RegistrationWrapper;
+import com.addonnet.entities.UserDetailsWrapper;
 import com.addonnet.utils.Utilities;
 import com.google.gson.Gson;
 
@@ -37,20 +38,22 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
         switch (taskId) {
             case SyncManager.LOGIN:
                 try {
-                    ArrayList<Login> alLogin = new ArrayList<>();
-                    Login login = new Gson().fromJson(response.toString(), Login.class);
-                    alLogin.add(login);
-                    arrResult = alLogin;
+                    ArrayList<RegistrationWrapper> arrayList = new ArrayList<>();
+                    response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
+                    RegistrationWrapper wrapper = new Gson().fromJson(response.toString(), RegistrationWrapper.class);
+                    arrayList.add(wrapper);
+                    arrResult = arrayList;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case SyncManager.SIGN_UP:
                 try {
-                    ArrayList<SignUp> alSignUp = new ArrayList<>();
-                    SignUp signUp = new Gson().fromJson(response.toString(), SignUp.class);
-                    alSignUp.add(signUp);
-                    arrResult = alSignUp;
+                    ArrayList<UserDetailsWrapper> arrayList = new ArrayList<>();
+                    response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
+                    UserDetailsWrapper wrapper = new Gson().fromJson(response.toString(), UserDetailsWrapper.class);
+                    arrayList.add(wrapper);
+                    arrResult = arrayList;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
