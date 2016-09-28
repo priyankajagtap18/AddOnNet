@@ -21,10 +21,12 @@
     <string name="connectivity">Connectivity</string>
     <string name="battery_life">Battery Life</string>
     <string name="description">DESCRIPTION</string>
+    <string name="enq_description">Description</string>
     <string name="address">Address</string>
     <string name="company_name">Company Name</string>
     <string name="optional">Optional</string>
     <string name="category">Category</string>
+    <string name="product">Products</string>
     <string name="item_detail">Item Detail</string>
     <string name="msg_please_wait">Please wait...</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -53,4 +55,6 @@
     <string name="or">OR</string>
     <string name="msg_already_register">User is already register. Please Sign In with different credentials.</string>
     <string name="login_fail">Invalid credentials</string>
+    <string name="enquiry_sent">Enquiry sent successfully</string>
+    <string name="enquiry_failed">Failed to send enquiry</string>
 </resources>

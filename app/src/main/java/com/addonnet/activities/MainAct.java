@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.addonnet.R;
 import com.addonnet.adapters.CategoryNameAdapter;
 import com.addonnet.constants.AppConstants;
-import com.addonnet.entities.CategoryData;
+import com.addonnet.entities.Categories;
 import com.addonnet.fragments.CategoryProductFragment;
 import com.addonnet.fragments.EnquiryFragment;
 import com.addonnet.fragments.ItemDetailFragment;
@@ -34,7 +34,6 @@ import com.addonnet.utils.UIUtils;
 import com.addonnet.utils.Utilities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainAct extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterResponseInterface {
 
@@ -46,7 +45,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     private NavigationView mNavigationView;
     private Context mContext;
     public static TextView mTvTitle;
-    private List<CategoryData> mAListCategory;
+    private ArrayList<Categories> mAListCategory;
     private CategoryNameAdapter adapter;
     private RecyclerView mRvCategory;
     private TextView mTvLogout, mTvMap;
@@ -58,10 +57,9 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
         bindControls();
         initSyncListener();
-        //  getCategories();
+        getCategories();
         setUpNavigationView();
         setListeners();
-        setAdapter();
     }
 
     private void bindControls() {
@@ -81,8 +79,6 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        mUtilities.replaceFragment(this, new CategoryProductFragment(), R.string.category);
-
     }
 
     private void getCategories() {
@@ -90,6 +86,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
             mAListCategory = new ArrayList<>();
             mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
             syncManager = new SyncManager(this, SyncManager.GET_CATEGORY, syncListener);
+            syncManager.getCategories();
         } else {
             mUtilities.hideProgressDialog();
             UIUtils.showToast(this, getString(R.string.network_error_msg));
@@ -104,6 +101,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
                 switch (taskId) {
                     case SyncManager.GET_CATEGORY:
                         if (arrResult != null && arrResult.size() > 0) {
+                            mAListCategory=((ArrayList<Categories>)arrResult);
+                            replaceFragment(mAListCategory.get(0).getCategoryId(),mAListCategory.get(0).getCategoryName());
                             setAdapter();
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
@@ -124,6 +123,12 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
             }
 
         };
+    }
+
+    private void replaceFragment(String catId,String catName)
+    {
+        AppConstants.CAT_ID=catId;
+        mUtilities.replaceFragmentForCategory(MainAct.this, new CategoryProductFragment(), catName);
     }
 
     private void setAdapter() {
@@ -151,7 +156,6 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -258,7 +262,11 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public void getAdapterResponse(Bundle bundle) {
+    public void getAdapterResponse(Bundle bundle)
+    {
+        String id=bundle.getString(AppConstants.KEY_CATEGORY_ID);
+        String name=bundle.getString(AppConstants.KEY_CATEGORY_NAME);
+        replaceFragment(id,name);
         closeDrawer();
     }
 }

@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class RegistrationWrapper {
-
+public class RegistrationWrapper
+{
     @SerializedName("Registration")
     @Expose
     private ArrayList<Registration> registration = new ArrayList<Registration>();
@@ -29,5 +29,4 @@ public class RegistrationWrapper {
     public void setRegistration(ArrayList<Registration> registration) {
         this.registration = registration;
     }
-
 }

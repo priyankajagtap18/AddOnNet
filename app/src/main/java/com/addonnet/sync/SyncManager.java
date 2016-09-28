@@ -4,13 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.addonnet.constants.AppUrls;
-import com.addonnet.entities.RegistrationWrapper;
-import com.addonnet.entities.UserDetailsWrapper;
 import com.addonnet.network.DownloadHandler;
 import com.addonnet.network.DownloadListener;
 import com.addonnet.utils.Utilities;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
@@ -23,7 +20,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int LOGIN = 1, SIGN_UP = 2, FORGOT_PASSWORD = 3, GET_CATEGORY = 4, GET_ITEM_DETAIL = 5, ENQUIRY = 6;
+    public static final int LOGIN = 1, SIGN_UP = 2, FORGOT_PASSWORD = 3, GET_CATEGORY = 4, GET_PRODUCT = 5,GET_ITEM_DETAIL = 6, ENQUIRY = 7;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -56,47 +53,39 @@ public class SyncManager implements DownloadListener, ParseListener {
     public void onParseFailure(String str, Throwable error) {
     }
 
-    public void postAuthentication(String strEmail, String strPassword) {
+    public void Authenticate(String strEmail, String strPassword) {
         AsyncHttpClient client = new AsyncHttpClient();
-        ArrayList<UserDetailsWrapper> arrResult = new ArrayList<>();
-        RequestParams requestParams = new RequestParams();
-        try {
-            requestParams.add("Email", strEmail);
-            requestParams.add("Password", strPassword);
-            Log.i("=== json body===", " " + requestParams);
-            client.post(AppUrls.spAuthentication, requestParams, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
-//            client.get("http://www.webdreamworksindia.in/addonsystem/GetCategoryLst.aspx?CategoryId=0&StatusId=0", null, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String sUrl = AppUrls.spAuthentication+"Email="+strEmail+"&Password="+strPassword;
+        Log.e("URL: ", "" + sUrl);
+        client.post(sUrl, null, new DownloadHandler(LOGIN, SyncManager.this, null));
+
     }
     public void postRegistration(String strName, String strEmail, String strPassword, String strMobile) {
         AsyncHttpClient client = new AsyncHttpClient();
-        ArrayList<RegistrationWrapper> arrResult = new ArrayList<>();
-        RequestParams requestParams = new RequestParams();
-        try {
-            requestParams.add("UserId", "0");
-            requestParams.add("Name", strPassword);
-            requestParams.add("Email", strPassword);
-            requestParams.add("Password", strPassword);
-            requestParams.add("Mobile", strPassword);
-            requestParams.add("StatusId", "1");
-            requestParams.add("UpdateType", "");
-            Log.i("=== json body===", " " + requestParams);
-            client.post(AppUrls.spRegistration, requestParams, new DownloadHandler(SIGN_UP, SyncManager.this, arrResult));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String sUrl = AppUrls.spRegistration+"&Name="+strName+"&Email="+strEmail+"&Password="+strPassword+"&Mobile="+strMobile;
+        Log.e("URL: ", "" + sUrl);
+        client.post(sUrl, null, new DownloadHandler(SIGN_UP, SyncManager.this, null));
     }
 
-   /* public void getTrend() {
-        ArrayList<Trend> arrResult = new ArrayList<>();
+    public void getCategories() {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(120000);
-        RequestParams requestParams = new RequestParams();
-        String sUrl = AppUrls.sGetTrend;
+        String sUrl = AppUrls.spCategories;
         Log.e("URL: ", "" + sUrl);
-        client.get(sUrl, null, new DownloadHandler(GET_TREND, SyncManager.this, arrResult));
-    }*/
+        client.get(sUrl, null, new DownloadHandler(GET_CATEGORY, SyncManager.this, null));
+    }
+    public void getProducts(String id) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(120000);
+        String sUrl = AppUrls.spProducts+"&CategoryId="+id;
+        Log.e("URL: ", "" + sUrl);
+        client.get(sUrl, null, new DownloadHandler(GET_PRODUCT, SyncManager.this, null));
+    }
+    public void sendEnquiry(String fullName,String email,String mobile,String address,String company,String description) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        String sUrl = AppUrls.spEnquiry+"&FullName="+fullName+"&Email="+email+"&Mobile="+mobile+"&CompanyName="+company+"&Address="+address+"&Description="+description;
+        Log.e("URL: ", "" + sUrl);
+        client.post(sUrl, null, new DownloadHandler(ENQUIRY, SyncManager.this, null));
+    }
 
 }

@@ -7,14 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.addonnet.R;
-import com.addonnet.entities.CategoryData;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.entities.Products;
 import com.addonnet.interfaces.AdapterResponseInterface;
+import com.addonnet.utils.Utilities;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by pita on 9/25/2016.
@@ -23,11 +24,11 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<CategoryData> mArrLResult;
+    private ArrayList<Products> mArrLResult;
     private AdapterResponseInterface listener;
 
 
-    public CategoryProductAdapter(Context context, List<CategoryData> arrResult, AdapterResponseInterface listener) {
+    public CategoryProductAdapter(Context context, ArrayList<Products> arrResult, AdapterResponseInterface listener) {
         super();
         this.mContext = context;
         this.mArrLResult = arrResult;
@@ -42,13 +43,15 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
     }
 
     @Override
-    public void onBindViewHolder(final CategoryViewHolder holder, final int i) {
+    public void onBindViewHolder(final CategoryViewHolder holder, final int i)
+    {
+        Utilities.setImage(mContext, mArrLResult.get(i).getImageUrl(),  holder.mIvProduct);
+        holder.tv_product.setText(mArrLResult.get(i).getProductName());
     }
 
     @Override
     public int getItemCount() {
-//        return mArrLResult.size();
-        return 5;
+        return mArrLResult.size();
     }
 
     @Override
@@ -57,22 +60,19 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvCategoryName;
-        private ImageView mIvCategory;
-        private LinearLayout mLlCategory;
+        private ImageView mIvProduct;
+        private TextView tv_product;
 
         public CategoryViewHolder(View view) {
             super(view);
-            mTvCategoryName = (TextView) view.findViewById(R.id.tv_category_name);
-            mIvCategory = (ImageView) view.findViewById(R.id.iv_category);
-            mLlCategory = (LinearLayout) view.findViewById(R.id.ll_category);
+            mIvProduct = (ImageView) view.findViewById(R.id.iv_item);
+            tv_product = (TextView) view.findViewById(R.id.tv_product);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    // bundle.putString(AppConstants.KEY_CATEGORY, "cat="+mArrLResult.get(getAdapterPosition()).getId());
-                    //  bundle.putString("Year", mArrLResult.get(getAdapterPosition()));
+                    bundle.putSerializable(AppConstants.KEY_PRODUCT_DETAILS, mArrLResult.get(getAdapterPosition()));
                     listener.getAdapterResponse(bundle);
                 }
             });

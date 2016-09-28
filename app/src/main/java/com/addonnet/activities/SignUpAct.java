@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.addonnet.R;
 import com.addonnet.constants.AppConstants;
 import com.addonnet.entities.Registration;
-import com.addonnet.entities.RegistrationWrapper;
 import com.addonnet.sync.SyncListener;
 import com.addonnet.sync.SyncManager;
 import com.addonnet.utils.PreferenceHandler;
@@ -32,7 +31,7 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
     private SyncManager syncManager;
     private SyncListener syncListener;
     private Utilities mUtilities;
-    private ArrayList<RegistrationWrapper> mArrLRegister;
+    private ArrayList<Registration> mArrLRegister;
     private String strName, strEmail, strMobileNo, strPwd, strConfirmPwd;
 
     @Override
@@ -83,8 +82,8 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
                 switch (taskId) {
                     case SyncManager.SIGN_UP:
                         if (arrResult != null && arrResult.size() > 0) {
-                            mArrLRegister = (ArrayList<RegistrationWrapper>) arrResult;
-                            showStatus(mArrLRegister.get(0).getRegistration().get(0));
+                            mArrLRegister = (ArrayList<Registration>) arrResult;
+                            showStatus(mArrLRegister.get(0));
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
                         }
@@ -112,7 +111,7 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
             if (LoginAct.mLoginActivity != null) {
                 LoginAct.mLoginActivity.finish();
             }
-            startActivity(new Intent(SignUpAct.this, MainAct.class));
+            startActivity(new Intent(SignUpAct.this, LoginAct.class));
             finish();
         } else {
             UIUtils.showToast(this, getString(R.string.msg_already_register));

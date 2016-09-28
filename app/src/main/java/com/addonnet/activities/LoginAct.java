@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.addonnet.R;
 import com.addonnet.constants.AppConstants;
 import com.addonnet.entities.UserDetail;
-import com.addonnet.entities.UserDetailsWrapper;
 import com.addonnet.sync.SyncListener;
 import com.addonnet.sync.SyncManager;
 import com.addonnet.utils.PreferenceHandler;
@@ -56,7 +55,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     private SyncManager syncManager;
     private SyncListener syncListener;
     private Utilities mUtilities;
-    private ArrayList<UserDetailsWrapper> mArrLDetail;
+    private ArrayList<UserDetail> mArrLDetail;
     private String strEmail, strPwd;
     private EditText mEtEmail, mEtPwd;
 
@@ -125,8 +124,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
                 switch (taskId) {
                     case SyncManager.LOGIN:
                         if (arrResult != null && arrResult.size() > 0) {
-                            mArrLDetail = (ArrayList<UserDetailsWrapper>) arrResult;
-                            showStatus(mArrLDetail.get(0).getUserDetails().get(0));
+                            mArrLDetail = (ArrayList<UserDetail>) arrResult;
+                            showStatus(mArrLDetail.get(0));
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
                         }
@@ -185,7 +184,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             mArrLDetail = new ArrayList<>();
             mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
             syncManager = new SyncManager(this, SyncManager.LOGIN, syncListener);
-            syncManager.postAuthentication(strEmail, strPwd);
+            syncManager.Authenticate(strEmail, strPwd);
         } else {
             mUtilities.hideProgressDialog();
             UIUtils.showToast(this, getString(R.string.network_error_msg));

@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 
 import com.addonnet.R;
 import com.addonnet.adapters.CategoryProductAdapter;
-import com.addonnet.entities.CategoryData;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.entities.Products;
 import com.addonnet.interfaces.AdapterResponseInterface;
+import com.addonnet.sync.SyncListener;
+import com.addonnet.sync.SyncManager;
+import com.addonnet.utils.UIUtils;
 import com.addonnet.utils.Utilities;
 
 import java.util.ArrayList;
@@ -26,8 +30,10 @@ public class CategoryProductFragment extends Fragment implements View.OnClickLis
     private Utilities mUtilities;
     private Context mContext;
     private CategoryProductAdapter adapter;
-    private ArrayList<CategoryData> mArrLCategory;
-    private RecyclerView mRvCategory;
+    private RecyclerView mRvProduct;
+    private ArrayList<Products> mAListProducts;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
 
     @Nullable
     @Override
@@ -36,26 +42,67 @@ public class CategoryProductFragment extends Fragment implements View.OnClickLis
         mRootView = inflater.inflate(R.layout.fragment_category, container, false);
         bindControls();
         setListeners();
-        setAdapter();
+        initSyncListener();
+        getProducts();
         return mRootView;
     }
 
     private void bindControls() {
         mContext = getActivity();
         mUtilities = new Utilities(mContext);
-        mRvCategory = (RecyclerView) mRootView.findViewById(R.id.rv_category);
+        mRvProduct = (RecyclerView) mRootView.findViewById(R.id.rv_category);
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
-        mRvCategory.setLayoutManager(layoutManager);
+        mRvProduct.setLayoutManager(layoutManager);
 
     }
 
     private void setListeners() {
     }
+    private void getProducts() {
+        if (mUtilities.isOnline()) {
+            mAListProducts = new ArrayList<>();
+            mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
+            syncManager = new SyncManager(getActivity(), SyncManager.GET_PRODUCT, syncListener);
+            syncManager.getProducts(AppConstants.CAT_ID);
+        } else {
+            mUtilities.hideProgressDialog();
+            UIUtils.showToast(getActivity(), getString(R.string.network_error_msg));
+        }
+    }
 
+    private void initSyncListener() {
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                mUtilities.hideProgressDialog();
+                switch (taskId) {
+                    case SyncManager.GET_PRODUCT:
+                        if (arrResult != null && arrResult.size() > 0) {
+                            mAListProducts =((ArrayList<Products>)arrResult);
+                            setAdapter();
+                        } else {
+                            onSyncFailure(taskId, getString(R.string.server_error));
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                mUtilities.hideProgressDialog();
+                UIUtils.showToast(getActivity(), getString(R.string.server_error));
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+
+        };
+    }
     private void setAdapter() {
-        mArrLCategory = new ArrayList<>();
-        adapter = new CategoryProductAdapter(mContext, mArrLCategory, this);
-        mRvCategory.setAdapter(adapter);
+        adapter = new CategoryProductAdapter(mContext, mAListProducts, this);
+        mRvProduct.setAdapter(adapter);
     }
 
     @Override
@@ -65,6 +112,9 @@ public class CategoryProductFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void getAdapterResponse(Bundle bundle) {
-        mUtilities.replaceFragment(getActivity(), new ItemDetailFragment(), R.string.item_detail);
+        if(bundle!=null) {
+            Products products = (Products) bundle.getSerializable(AppConstants.KEY_PRODUCT_DETAILS);
+            mUtilities.replaceFragment(getActivity(), new ItemDetailFragment().newInstance(products), R.string.item_detail);
+        }
     }
 }

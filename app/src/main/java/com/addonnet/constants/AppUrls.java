@@ -6,12 +6,13 @@ package com.addonnet.constants;
 public interface AppUrls {
 
 
-    String sBaseURL = "http://115.124.122.187/addonsystem/MobileSevice.asmx/";
+    String sBaseURL = "http://www.webdreamworksindia.in/addonsystem/";
 
-    String spAuthentication = sBaseURL + "UserAuthentication/";
-    String spRegistration = sBaseURL + "UserRegistration/";
+    String spAuthentication = sBaseURL + "UserAuthentication.aspx?";
+    String spRegistration = sBaseURL + "UserRegistration.aspx?UserId=0&UpdateType=&StatusId=1";
+    String spCategories = sBaseURL + "GetCategoryLst.aspx?CategoryId=0&StatusId=0";
+    String spProducts = sBaseURL + "ProductLst.aspx?ProductId=0&StatusId=0";
+    String spEnquiry= sBaseURL + "EnquiryAddUpd.aspx?StatusId=1&UpdateType=Add&EnquiryId=0";
 
-    String sStartXMLTag = "<string xmlns=\"http://tempuri.org/\">";
-    String sEndXMLTag = "</string>";
 
 }

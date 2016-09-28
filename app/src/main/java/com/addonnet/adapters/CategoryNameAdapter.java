@@ -11,10 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.addonnet.R;
-import com.addonnet.entities.CategoryData;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.entities.Categories;
 import com.addonnet.interfaces.AdapterResponseInterface;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by PriyankaJ on 08-09-2016.
@@ -23,11 +24,11 @@ public class CategoryNameAdapter extends RecyclerView.Adapter<CategoryNameAdapte
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<CategoryData> mArrLResult;
+    private ArrayList<Categories> mArrLResult;
     private AdapterResponseInterface listener;
 
 
-    public CategoryNameAdapter(Context context, List<CategoryData> arrResult, AdapterResponseInterface listener) {
+    public CategoryNameAdapter(Context context, ArrayList<Categories> arrResult, AdapterResponseInterface listener) {
         super();
         this.mContext = context;
         this.mArrLResult = arrResult;
@@ -42,13 +43,15 @@ public class CategoryNameAdapter extends RecyclerView.Adapter<CategoryNameAdapte
     }
 
     @Override
-    public void onBindViewHolder(final CategoryViewHolder holder, final int i) {
+    public void onBindViewHolder(final CategoryViewHolder holder, final int i)
+    {
+        holder.mTvCategoryName.setText(mArrLResult.get(i).getCategoryName());
     }
 
     @Override
     public int getItemCount() {
 //        return mArrLResult.size();
-        return 5;
+        return mArrLResult.size();
     }
 
     @Override
@@ -71,8 +74,8 @@ public class CategoryNameAdapter extends RecyclerView.Adapter<CategoryNameAdapte
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                   // bundle.putString(AppConstants.KEY_CATEGORY, "cat="+mArrLResult.get(getAdapterPosition()).getId());
-                    //  bundle.putString("Year", mArrLResult.get(getAdapterPosition()));
+                    bundle.putString(AppConstants.KEY_CATEGORY_ID, mArrLResult.get(getAdapterPosition()).getCategoryId());
+                    bundle.putString(AppConstants.KEY_CATEGORY_NAME, mArrLResult.get(getAdapterPosition()).getCategoryName());
                     listener.getAdapterResponse(bundle);
                 }
             });

@@ -69,6 +69,27 @@ public class Utilities {
             e.printStackTrace();
         }
     }
+    public void replaceFragmentForCategory(final FragmentActivity mActivity, final Fragment mFragment, String cat) {
+        try {
+            if (mActivity != null) {
+                String strTitle = cat;
+                AppConstants.sTagFragment = strTitle;
+                fragmentTransaction = mActivity.getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_rigth, R.anim.exit_to_left, R.anim.pop_enter, R.anim.pop_exit);
+                if (MainAct.mTvTitle != null)
+                    MainAct.mTvTitle.setText(strTitle);
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragmentTransaction.replace(R.id.fl_container, mFragment, AppConstants.sTagFragment).commit();
+                    }
+                }, 100);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void showProgressDialog(String message) {
         if (pgdialog != null)

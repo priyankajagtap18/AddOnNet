@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.addonnet.R;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.entities.Products;
 import com.addonnet.utils.Utilities;
 
 /**
@@ -21,6 +23,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     private Utilities mUtilities;
     private Context mContext;
     private ImageView mIvItem;
+    private Products products;
     private TextView mTvEnquiry, mTvBrand, mTvColor, mTvItemWidth, mTvScreenRes, mTvHardDrive, mTvBatteryLife,
             mTvConnectivity, mTvDescription;
 
@@ -29,9 +32,21 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
+        if (getArguments() != null)
+            products = (Products) getArguments().getSerializable(AppConstants.KEY_PRODUCT_DETAILS);
         bindControls();
         setListeners();
         return mRootView;
+    }
+
+    public static ItemDetailFragment newInstance(Products products) {
+        ItemDetailFragment itemDetailFragment = new ItemDetailFragment();
+        if (products != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(AppConstants.KEY_PRODUCT_DETAILS, products);
+            itemDetailFragment.setArguments(bundle);
+        }
+        return itemDetailFragment;
     }
 
     private void bindControls() {
@@ -48,6 +63,10 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         mTvDescription = (TextView) mRootView.findViewById(R.id.tv_description);
         mIvItem = (ImageView) mRootView.findViewById(R.id.iv_item);
 
+        Utilities.setImage(mContext, products.getImageUrl(),  mIvItem);
+        mTvBrand.setText(products.getBrandName());
+        mTvColor.setText(products.getColorName());
+        mTvDescription.setText(products.getDescription());
     }
 
     private void setListeners() {
