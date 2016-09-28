@@ -6,7 +6,7 @@ package com.addonnet.constants;
 public interface AppUrls {
 
 
-    String sBaseURL = "http://www.webdreamworksindia.in/addonsystem/MobileSevice.asmx/";
+    String sBaseURL = "http://115.124.122.187/addonsystem/MobileSevice.asmx/";
 
     String spAuthentication = sBaseURL + "UserAuthentication/";
     String spRegistration = sBaseURL + "UserRegistration/";

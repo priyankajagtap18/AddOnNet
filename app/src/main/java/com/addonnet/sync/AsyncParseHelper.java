@@ -39,7 +39,7 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
             case SyncManager.LOGIN:
                 try {
                     ArrayList<RegistrationWrapper> arrayList = new ArrayList<>();
-                    response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
+                   // response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
                     RegistrationWrapper wrapper = new Gson().fromJson(response.toString(), RegistrationWrapper.class);
                     arrayList.add(wrapper);
                     arrResult = arrayList;
@@ -50,7 +50,7 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
             case SyncManager.SIGN_UP:
                 try {
                     ArrayList<UserDetailsWrapper> arrayList = new ArrayList<>();
-                    response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
+                  //  response = response.replace(AppUrls.sStartXMLTag, "").replace(AppUrls.sEndXMLTag, "");
                     UserDetailsWrapper wrapper = new Gson().fromJson(response.toString(), UserDetailsWrapper.class);
                     arrayList.add(wrapper);
                     arrResult = arrayList;

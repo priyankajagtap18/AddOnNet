@@ -24,7 +24,6 @@ public class SyncManager implements DownloadListener, ParseListener {
     private int type;
     private Utilities utilities;
     public static final int LOGIN = 1, SIGN_UP = 2, FORGOT_PASSWORD = 3, GET_CATEGORY = 4, GET_ITEM_DETAIL = 5, ENQUIRY = 6;
-    ;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -66,6 +65,7 @@ public class SyncManager implements DownloadListener, ParseListener {
             requestParams.add("Password", strPassword);
             Log.i("=== json body===", " " + requestParams);
             client.post(AppUrls.spAuthentication, requestParams, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
+//            client.get("http://www.webdreamworksindia.in/addonsystem/GetCategoryLst.aspx?CategoryId=0&StatusId=0", null, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
         } catch (Exception e) {
             e.printStackTrace();
         }
