@@ -3,76 +3,103 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_app"
     android:orientation="vertical">
-
-    <TextView
-        style="@style/tv_toolbar_heading"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/signup" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            card_view:cardBackgroundColor="@color/faint_white"
-            card_view:cardCornerRadius="1dp"
-            card_view:contentPadding="8dp">
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_logo" />
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/tv_black_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/full_name" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_full_name"
                     style="@style/tv_faint_black_sub_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/required"
+                    android:hint="@string/full_name"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="10dp"
                     android:maxLength="50"
                     android:maxLines="1" />
 
-                <TextView
-                    style="@style/tv_black_title"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/email_id" />
+                    android:layout_alignBottom="@+id/et_full_name"
+                    android:layout_alignLeft="@+id/et_full_name"
+                    android:layout_alignTop="@+id/et_full_name"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_mail" />
+
+            </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_email"
                     style="@style/tv_faint_black_sub_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/required"
+                    android:hint="@string/email_id"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="10dp" />
 
-                <TextView
-                    style="@style/tv_black_title"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/mobile_no" />
+                    android:layout_alignBottom="@+id/et_email"
+                    android:layout_alignLeft="@+id/et_email"
+                    android:layout_alignTop="@+id/et_email"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_mail" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_mobile_no"
@@ -80,80 +107,119 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789"
-                    android:hint="@string/required"
+                    android:hint="@string/mobile_no"
                     android:inputType="number"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="10dp"
                     android:maxLength="20"
                     android:maxLines="1" />
 
-                <TextView
-                    style="@style/tv_black_title"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/password" />
+                    android:layout_alignBottom="@+id/et_mobile_no"
+                    android:layout_alignLeft="@+id/et_mobile_no"
+                    android:layout_alignTop="@+id/et_mobile_no"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_phone" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/et_password"
                     style="@style/tv_faint_black_sub_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/required"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="40"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="10dp" />
 
-                <TextView
-                    style="@style/tv_black_title"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/confirm_pwd" />
+                    android:layout_alignBottom="@+id/et_password"
+                    android:layout_alignLeft="@+id/et_password"
+                    android:layout_alignTop="@+id/et_password"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_password" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/et_confirm_password"
                     style="@style/tv_faint_black_sub_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/required"
+                    android:hint="@string/msg_empty_confirm_password"
                     android:inputType="textPassword"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="10dp"
                     android:maxLength="40"
                     android:maxLines="1" />
 
-                <TextView
-                    android:id="@+id/tv_signup"
-                    style="@style/tv_bg_blue_title"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="28dp"
-                    android:paddingRight="28dp"
-                    android:text="@string/signup" />
+                    android:layout_alignBottom="@+id/et_confirm_password"
+                    android:layout_alignLeft="@+id/et_confirm_password"
+                    android:layout_alignTop="@+id/et_confirm_password"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_password" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_btn_sign_up" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv_black_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:text="@string/already_member" />
 
-                    <TextView
-                        style="@style/tv_black_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:gravity="left"
-                        android:text="@string/already_member" />
-
-                    <TextView
-                        android:id="@+id/tv_login"
-                        style="@style/tv_blue_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:gravity="left"
-                        android:text="@string/login" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_login"
+                    style="@style/tv_red_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login" />
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

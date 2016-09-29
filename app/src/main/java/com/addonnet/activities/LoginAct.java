@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.addonnet.R;
@@ -44,12 +44,12 @@ import java.util.List;
 public class LoginAct extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private Context mContext;
-    private TextView mTvLogin, mTvForgetPwd, mTvSignUp;
-    private LinearLayout mLlFbLogin, mLlGoogleLogin;
+    private TextView mTvForgetPwd, mTvSignUp;
+    private ImageView mIvLogin, mIvBtnFBLogin, mIvBtnGLogin;
     private SimpleFacebook mSimpleFacebook;
     private SimpleFacebookConfiguration configuration;
     private Permission[] permissions;
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 12501;//9001;
     private GoogleApiClient mGoogleApiClient;
     public static Activity mLoginActivity;
     private SyncManager syncManager;
@@ -73,13 +73,13 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         mLoginActivity = LoginAct.this;
         mUtilities = new Utilities(mContext);
         FacebookSdk.sdkInitialize(mContext);
-        mTvLogin = (TextView) findViewById(R.id.tv_login);
+        mIvLogin = (ImageView) findViewById(R.id.iv_login);
         mTvForgetPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         mTvSignUp = (TextView) findViewById(R.id.tv_signup);
         mEtEmail = (EditText) findViewById(R.id.et_email);
         mEtPwd = (EditText) findViewById(R.id.et_password);
-        mLlFbLogin = (LinearLayout) findViewById(R.id.ll_fb_login);
-        mLlGoogleLogin = (LinearLayout) findViewById(R.id.ll_google_login);
+        mIvBtnFBLogin = (ImageView) findViewById(R.id.iv_btn_fb_login);
+        mIvBtnGLogin = (ImageView) findViewById(R.id.iv_btn_g_login);
         mSimpleFacebook = SimpleFacebook.getInstance(this);
         permissions = new Permission[]{Permission.EMAIL, Permission.PUBLISH_ACTION};
         configuration = new SimpleFacebookConfiguration.Builder().setAppId(getString(R.string.app_id)).setPermissions(permissions).build();
@@ -89,25 +89,25 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void setListeners() {
-        mTvLogin.setOnClickListener(this);
+        mIvLogin.setOnClickListener(this);
         mTvForgetPwd.setOnClickListener(this);
         mTvSignUp.setOnClickListener(this);
-        mLlFbLogin.setOnClickListener(this);
-        mLlGoogleLogin.setOnClickListener(this);
+        mIvBtnFBLogin.setOnClickListener(this);
+        mIvBtnGLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_login:
+            case R.id.iv_login:
                 if (validateFields()) {
                     doLogin();
                 }
                 break;
-            case R.id.ll_fb_login:
+            case R.id.iv_btn_fb_login:
                 doFacebookLogin();
                 break;
-            case R.id.ll_google_login:
+            case R.id.iv_btn_g_login:
                 doGooglePlusLogin();
                 break;
             case R.id.tv_signup:
@@ -149,6 +149,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     private void showStatus(UserDetail userDetail) {
         if (userDetail.getStatus().equalsIgnoreCase("true")) {
             UIUtils.showToast(this, getString(R.string.login_success));
+            AppConstants.userDetail=new UserDetail();
+            AppConstants.userDetail=userDetail;
             PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
             startActivity(new Intent(LoginAct.this, MainAct.class));
             finish();
@@ -202,8 +204,9 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         // [START build_client]
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(LoginAct.this, this)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
@@ -264,7 +267,14 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            getGooglePlusProfile(result);
+        }
+       /* try {
             mSimpleFacebook.onActivityResult(requestCode, resultCode, data);
             // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
             if (requestCode == RC_SIGN_IN) {
@@ -274,7 +284,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             super.onActivityResult(requestCode, resultCode, data);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -291,9 +301,10 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
             System.out.println(account.getDisplayName() + "\t" + account.getEmail() + "\t" + account.getGivenName());
-            PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
-            startActivity(new Intent(LoginAct.this, MainAct.class));
-            finish();
+            UserDetail userDetail=new UserDetail();
+            userDetail.setName(account.getGivenName());
+            userDetail.setEmail(account.getEmail());
+            showStatus(userDetail);
         } else {
             Utilities.showToast(mContext, getString(R.string.server_error));
         }

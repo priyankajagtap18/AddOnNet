@@ -44,13 +44,24 @@
         <item name="android:gravity">left|center_horizontal</item>
         <item name="android:padding">5dp</item>
     </style>
+    <style name="tv_white_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">left|center_horizontal</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    <style name="tv_red_title">
+        <item name="android:textColor">@color/red_google</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:gravity">left|center_horizontal</item>
+        <item name="android:padding">5dp</item>
+    </style>
 
     <style name="tv_faint_black_sub_title">
         <item name="android:textColor">@color/black_title</item>
         <item name="android:textColorHint">@color/black_hint</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
         <item name="android:gravity">left|center_horizontal</item>
-        <item name="android:padding">5dp</item>
         <item name="android:background">@drawable/bg_item_white_rectangle</item>
     </style>
 
@@ -71,7 +82,14 @@
     <style name="vw_divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.6dp</item>
-        <item name="android:background">@color/faint_white</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/ic_midd_line</item>
+    </style>
+    <style name="nav_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.6dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/bg_nav_devider</item>
     </style>
     <style name="tv_social_login">
         <item name="android:textColor">@color/white</item>

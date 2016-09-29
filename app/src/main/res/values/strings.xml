@@ -1,6 +1,7 @@
 <resources>
+    <string name="server_client_id">274163240030-vmu28kdb7kb9lih9qhtsvlh098lj3nsh.apps.googleusercontent.com</string>
     <string name="app_name">AddOn Systems</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
     <string name="signup">Sign up</string>
     <string name="enquiry">ENQUIRY</string>
     <string name="forgot_password">Forget Password ?</string>
@@ -20,7 +21,7 @@
     <string name="hard_drive">Hard Drive</string>
     <string name="connectivity">Connectivity</string>
     <string name="battery_life">Battery Life</string>
-    <string name="description">DESCRIPTION</string>
+    <string name="description">Description</string>
     <string name="enq_description">Description</string>
     <string name="address">Address</string>
     <string name="company_name">Company Name</string>
@@ -51,10 +52,11 @@
     <string name="ok">OK</string>
     <string name="map">Map</string>
     <string name="logout">Logout</string>
-    <string name="email_id">Email Id</string>
+    <string name="email_id">Email Address</string>
     <string name="or">OR</string>
     <string name="msg_already_register">User is already register. Please Sign In with different credentials.</string>
     <string name="login_fail">Invalid credentials</string>
     <string name="enquiry_sent">Enquiry sent successfully</string>
     <string name="enquiry_failed">Failed to send enquiry</string>
+    <string name="signup_now">Sign up now</string>
 </resources>

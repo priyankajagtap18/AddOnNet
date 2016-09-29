@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.addonnet.R;
@@ -48,7 +49,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Categories> mAListCategory;
     private CategoryNameAdapter adapter;
     private RecyclerView mRvCategory;
-    private TextView mTvLogout, mTvMap;
+    private TextView mTvLogout, mTvMap, mTvUserName, mTvEmail;;
+    private ImageView iv_profile;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -72,6 +74,13 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         mTvMap = (TextView) mNavigationView.findViewById(R.id.tv_map);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
+        mTvUserName = (TextView) mNavigationView.findViewById(R.id.tv_user_name);
+        mTvEmail = (TextView) mNavigationView.findViewById(R.id.tv_email);
+        iv_profile = (ImageView) mNavigationView.findViewById(R.id.iv_profile);
+
+        mTvUserName.setText(AppConstants.userDetail.getName());
+        mTvEmail.setText(AppConstants.userDetail.getEmail());
+
         setSupportActionBar(mToolbar);
 
         if (getSupportActionBar() != null) {

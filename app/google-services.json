@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "274163240030",
+    "project_id": "firebase-addonnet"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274163240030:android:07a62ab042655a81",
+        "android_client_info": {
+          "package_name": "com.addonnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274163240030-nt76cnpq45894ods5vtm1l4p10hf1ll6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.addonnet",
+            "certificate_hash": "E92784A685E963703C33D9A2F215429D325E5211"
+          }
+        },
+        {
+          "client_id": "274163240030-vmu28kdb7kb9lih9qhtsvlh098lj3nsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmvH7KU8TgDybWwciFc_uiq8Y0f-Z-r1E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

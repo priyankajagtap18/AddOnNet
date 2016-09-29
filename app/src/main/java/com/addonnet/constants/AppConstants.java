@@ -2,6 +2,8 @@ package com.addonnet.constants;
 
 import android.content.Context;
 
+import com.addonnet.entities.UserDetail;
+
 /**
  * Created by PriyankaJ on 09-03-2016.
  */
@@ -18,6 +20,8 @@ public class AppConstants
     public static final String KEY_CATEGORY_NAME = "KEY_CATEGORY_NAME";
     public static final String KEY_PRODUCT_DETAILS = "KEY_PRODUCT_DETAILS";
     public static String CAT_ID;
+
+    public static UserDetail userDetail;
 
 
     public static synchronized AppConstants getInstance() {
