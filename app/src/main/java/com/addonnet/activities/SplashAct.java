@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.addonnet.R;
+import com.addonnet.constants.AppConstants;
+import com.addonnet.utils.PreferenceHandler;
 
 
 public class SplashAct extends Activity {
@@ -21,12 +23,12 @@ public class SplashAct extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    /*boolean isLoggedIn = PreferenceHandler.readBoolean(SplashAct.this, AppConstants.sKeyIsLoggedIn, false);
+                    boolean isLoggedIn = PreferenceHandler.readBoolean(SplashAct.this, AppConstants.sKeyIsLoggedIn, false);
                     if (isLoggedIn) {
                         startActivity(new Intent(SplashAct.this, MainAct.class));
-                    } else {*/
+                    } else {
                         startActivity(new Intent(SplashAct.this, OptionActivity.class));
-                   // }
+                    }
                 }
             }
         };

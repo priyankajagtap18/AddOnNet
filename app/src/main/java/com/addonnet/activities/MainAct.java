@@ -27,6 +27,7 @@ import com.addonnet.entities.Categories;
 import com.addonnet.fragments.CategoryProductFragment;
 import com.addonnet.fragments.EnquiryFragment;
 import com.addonnet.fragments.ItemDetailFragment;
+import com.addonnet.fragments.ShowMapFragment;
 import com.addonnet.interfaces.AdapterResponseInterface;
 import com.addonnet.sync.SyncListener;
 import com.addonnet.sync.SyncManager;
@@ -49,8 +50,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Categories> mAListCategory;
     private CategoryNameAdapter adapter;
     private RecyclerView mRvCategory;
-    private TextView mTvLogout, mTvMap, mTvUserName, mTvEmail;;
-    private ImageView iv_profile;
+    private TextView mTvMap, mTvUserName, mTvEmail;
+    private ImageView iv_profile, mIvLogout;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -70,16 +71,16 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mRvCategory = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
-        mTvLogout = (TextView) mNavigationView.findViewById(R.id.tv_logout);
         mTvMap = (TextView) mNavigationView.findViewById(R.id.tv_map);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mIvLogout = (ImageView) mToolbar.findViewById(R.id.iv_logout);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
         mTvUserName = (TextView) mNavigationView.findViewById(R.id.tv_user_name);
         mTvEmail = (TextView) mNavigationView.findViewById(R.id.tv_email);
         iv_profile = (ImageView) mNavigationView.findViewById(R.id.iv_profile);
 
-        mTvUserName.setText(AppConstants.userDetail.getName());
-        mTvEmail.setText(AppConstants.userDetail.getEmail());
+        mTvUserName.setText(PreferenceHandler.readString(mContext, AppConstants.sKeyName, ""));
+        mTvEmail.setText(PreferenceHandler.readString(mContext, AppConstants.sKeyEmail, ""));
 
         setSupportActionBar(mToolbar);
 
@@ -110,8 +111,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
                 switch (taskId) {
                     case SyncManager.GET_CATEGORY:
                         if (arrResult != null && arrResult.size() > 0) {
-                            mAListCategory=((ArrayList<Categories>)arrResult);
-                            replaceFragment(mAListCategory.get(0).getCategoryId(),mAListCategory.get(0).getCategoryName());
+                            mAListCategory = ((ArrayList<Categories>) arrResult);
+                            replaceFragment(mAListCategory.get(0).getCategoryId(), mAListCategory.get(0).getCategoryName());
                             setAdapter();
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
@@ -134,9 +135,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         };
     }
 
-    private void replaceFragment(String catId,String catName)
-    {
-        AppConstants.CAT_ID=catId;
+    private void replaceFragment(String catId, String catName) {
+        AppConstants.CAT_ID = catId;
         mUtilities.replaceFragmentForCategory(MainAct.this, new CategoryProductFragment(), catName);
     }
 
@@ -151,7 +151,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     private void setListeners() {
-        mTvLogout.setOnClickListener(this);
+        mIvLogout.setOnClickListener(this);
         mTvMap.setOnClickListener(this);
     }
 
@@ -219,14 +219,9 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
             if (myFragment instanceof CategoryProductFragment) {
                 handleBackPress();
             }
-            if (myFragment instanceof EnquiryFragment) {
+            if (myFragment instanceof EnquiryFragment || myFragment instanceof ItemDetailFragment || myFragment instanceof ShowMapFragment) {
                 mUtilities.replaceFragment(this, new CategoryProductFragment(), R.string.category);
             }
-            if (myFragment instanceof ItemDetailFragment) {
-
-                mUtilities.replaceFragment(this, new CategoryProductFragment(), R.string.category);
-            }
-
         }
     }
 
@@ -250,10 +245,11 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     public void onClick(View v) {
         closeDrawer();
         switch (v.getId()) {
-            case R.id.tv_logout:
+            case R.id.iv_logout:
                 showLogoutDialog();
                 break;
             case R.id.tv_map:
+                mUtilities.replaceFragment(MainAct.this, new ShowMapFragment(), R.string.map);
                 break;
         }
     }
@@ -271,11 +267,10 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public void getAdapterResponse(Bundle bundle)
-    {
-        String id=bundle.getString(AppConstants.KEY_CATEGORY_ID);
-        String name=bundle.getString(AppConstants.KEY_CATEGORY_NAME);
-        replaceFragment(id,name);
+    public void getAdapterResponse(Bundle bundle) {
+        String id = bundle.getString(AppConstants.KEY_CATEGORY_ID);
+        String name = bundle.getString(AppConstants.KEY_CATEGORY_NAME);
+        replaceFragment(id, name);
         closeDrawer();
     }
 }

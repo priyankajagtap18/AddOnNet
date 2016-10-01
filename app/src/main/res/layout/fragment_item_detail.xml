@@ -49,8 +49,8 @@
 
                 <ImageView
                     android:id="@+id/iv_drop_down"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="5dp"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="right"
-                android:text="abc" />
+                android:text="" />
         </LinearLayout>
 
         <View
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="right"
-                android:text="abc" />
+                android:text="" />
         </LinearLayout>
 
         <View
@@ -304,8 +304,8 @@
                 android:text="@string/description" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="5dp"
@@ -319,7 +319,7 @@
             style="@style/tv_black_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="dfoghdflhdbkjhkvjbhvkjbhjuhjf  gogu ugoid  ufofigu odgods   dfgog s odg   udio" />
+            android:text="" />
 
 
         <ImageView

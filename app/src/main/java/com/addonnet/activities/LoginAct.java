@@ -84,7 +84,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         permissions = new Permission[]{Permission.EMAIL, Permission.PUBLISH_ACTION};
         configuration = new SimpleFacebookConfiguration.Builder().setAppId(getString(R.string.app_id)).setPermissions(permissions).build();
         SimpleFacebook.setConfiguration(configuration);
-        //Utilities.getKeyHash(this);
+        Utilities.getKeyHash(this);
         initGooglePlus();
     }
 
@@ -149,9 +149,12 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     private void showStatus(UserDetail userDetail) {
         if (userDetail.getStatus().equalsIgnoreCase("true")) {
             UIUtils.showToast(this, getString(R.string.login_success));
-            AppConstants.userDetail=new UserDetail();
-            AppConstants.userDetail=userDetail;
+            if (OptionActivity.mOptionActivity != null) {
+                OptionActivity.mOptionActivity.finish();
+            }
             PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
+            PreferenceHandler.writeString(mContext, AppConstants.sKeyName, userDetail.getName());
+            PreferenceHandler.writeString(mContext, AppConstants.sKeyEmail, userDetail.getEmail());
             startActivity(new Intent(LoginAct.this, MainAct.class));
             finish();
         } else {
@@ -213,7 +216,6 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     private void doFacebookLogin() {
         try {
-            mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
             if (!mSimpleFacebook.isLogin()) {
                 mSimpleFacebook.login(new OnLoginListener() {
                     @Override
@@ -253,10 +255,11 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             mSimpleFacebook.getProfile(properties, new OnProfileListener() {
                 @Override
                 public void onComplete(Profile profile) {
-                    mUtilities.hideProgressDialog();
-                    PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
-                    startActivity(new Intent(LoginAct.this, MainAct.class));
-                    finish();
+                    UserDetail userDetail = new UserDetail();
+                    userDetail.setName(profile.getName());
+                    userDetail.setEmail(profile.getEmail());
+                    userDetail.setStatus("true");
+                    showStatus(userDetail);
                 }
             });
         } catch (Exception e) {
@@ -267,24 +270,15 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        mSimpleFacebook.onActivityResult(requestCode, resultCode, data);
+
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             getGooglePlusProfile(result);
         }
-       /* try {
-            mSimpleFacebook.onActivityResult(requestCode, resultCode, data);
-            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-            if (requestCode == RC_SIGN_IN) {
-                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                getGooglePlusProfile(result);
-            }
-            super.onActivityResult(requestCode, resultCode, data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -301,9 +295,10 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
             System.out.println(account.getDisplayName() + "\t" + account.getEmail() + "\t" + account.getGivenName());
-            UserDetail userDetail=new UserDetail();
+            UserDetail userDetail = new UserDetail();
             userDetail.setName(account.getGivenName());
             userDetail.setEmail(account.getEmail());
+            userDetail.setStatus("true");
             showStatus(userDetail);
         } else {
             Utilities.showToast(mContext, getString(R.string.server_error));

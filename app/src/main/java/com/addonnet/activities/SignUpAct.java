@@ -1,7 +1,6 @@
 package com.addonnet.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.addonnet.R;
-import com.addonnet.constants.AppConstants;
 import com.addonnet.entities.Registration;
 import com.addonnet.sync.SyncListener;
 import com.addonnet.sync.SyncManager;
-import com.addonnet.utils.PreferenceHandler;
 import com.addonnet.utils.UIUtils;
 import com.addonnet.utils.Utilities;
 
@@ -109,11 +106,6 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
     private void showStatus(Registration registration) {
         if (registration.getStatus().equalsIgnoreCase("true")) {
             UIUtils.showToast(this, getString(R.string.registration_success));
-            PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
-            if (LoginAct.mLoginActivity != null) {
-                LoginAct.mLoginActivity.finish();
-            }
-            startActivity(new Intent(SignUpAct.this, LoginAct.class));
             finish();
         } else {
             UIUtils.showToast(this, getString(R.string.msg_already_register));
