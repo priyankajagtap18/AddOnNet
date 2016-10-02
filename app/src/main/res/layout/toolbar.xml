@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:paddingRight="50dp"
-            android:text="fdvdfvsdv" />
+            android:text="" />
 
         <ImageView
             android:id="@+id/iv_logout"

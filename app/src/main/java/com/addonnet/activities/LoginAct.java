@@ -289,19 +289,23 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void getGooglePlusProfile(GoogleSignInResult result) {
-        Log.d("googleplus", "getGooglePlusProfile:" + result.getStatus());
-        mUtilities.hideProgressDialog();
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount account = result.getSignInAccount();
-            System.out.println(account.getDisplayName() + "\t" + account.getEmail() + "\t" + account.getGivenName());
-            UserDetail userDetail = new UserDetail();
-            userDetail.setName(account.getGivenName());
-            userDetail.setEmail(account.getEmail());
-            userDetail.setStatus("true");
-            showStatus(userDetail);
-        } else {
-            Utilities.showToast(mContext, getString(R.string.server_error));
+        try {
+            Log.d("googleplus", "getGooglePlusProfile:" + result.getStatus());
+            mUtilities.hideProgressDialog();
+            if (result.isSuccess()) {
+                // Signed in successfully, show authenticated UI.
+                GoogleSignInAccount account = result.getSignInAccount();
+                System.out.println(account.getDisplayName() + "\t" + account.getEmail() + "\t" + account.getGivenName());
+                UserDetail userDetail = new UserDetail();
+                userDetail.setName(account.getGivenName());
+                userDetail.setEmail(account.getEmail());
+                userDetail.setStatus("true");
+                showStatus(userDetail);
+            } else {
+                Utilities.showToast(mContext, getString(R.string.server_error));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
