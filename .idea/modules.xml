@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AddOnNet.iml" filepath="$PROJECT_DIR$/AddOnNet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addonet.iml" filepath="$PROJECT_DIR$/addonet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
