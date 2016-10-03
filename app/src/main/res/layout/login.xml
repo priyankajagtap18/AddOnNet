@@ -47,12 +47,13 @@
                         android:maxLength="50"
                         android:maxLines="1"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp" />
+                        android:paddingLeft="30dp"
+                        android:paddingTop="5dp"
+                        android:text="" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_alignBottom="@+id/et_email"
                         android:layout_alignLeft="@+id/et_email"
                         android:layout_alignTop="@+id/et_email"
@@ -78,12 +79,13 @@
                         android:maxLength="40"
                         android:maxLines="1"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="5dp" />
+                        android:paddingLeft="30dp"
+                        android:paddingTop="5dp"
+                        android:text="" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_alignBottom="@+id/et_password"
                         android:layout_alignLeft="@+id/et_password"
                         android:layout_alignTop="@+id/et_password"
@@ -96,16 +98,16 @@
                     android:id="@+id/iv_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/ic_btn_login" />
 
                 <TextView
                     android:id="@+id/tv_forget_pwd"
                     style="@style/tv_blue_title"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/forgot_password" />
 
 
@@ -133,23 +135,25 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_or"/>
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_or" />
+
                 <ImageView
                     android:id="@+id/iv_btn_fb_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_fb"/>
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_fb" />
+
                 <ImageView
                     android:id="@+id/iv_btn_g_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_google"/>
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_google" />
 
             </LinearLayout>
 

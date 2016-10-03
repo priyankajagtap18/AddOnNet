@@ -43,10 +43,13 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
     }
 
     @Override
-    public void onBindViewHolder(final CategoryViewHolder holder, final int i)
-    {
-        Utilities.setImage(mContext, mArrLResult.get(i).getImageUrl(),  holder.mIvProduct);
-        holder.tv_product.setText(mArrLResult.get(i).getProductName());
+    public void onBindViewHolder(final CategoryViewHolder holder, final int i) {
+        try {
+            holder.tv_product.setText(mArrLResult.get(i).getProductName());
+            Utilities.setImage(mContext, mArrLResult.get(i).getImageUrl().replace(" ", "%20"), holder.mIvProduct);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

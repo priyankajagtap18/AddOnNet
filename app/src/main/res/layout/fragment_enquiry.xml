@@ -36,12 +36,12 @@
                 android:maxLength="50"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_full_name"
                 android:layout_alignLeft="@+id/et_full_name"
                 android:layout_alignTop="@+id/et_full_name"
@@ -68,12 +68,12 @@
                 android:maxLength="50"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_email"
                 android:layout_alignLeft="@+id/et_email"
                 android:layout_alignTop="@+id/et_email"
@@ -101,12 +101,12 @@
                 android:maxLength="20"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_mobile_no"
                 android:layout_alignLeft="@+id/et_mobile_no"
                 android:layout_alignTop="@+id/et_mobile_no"
@@ -131,12 +131,12 @@
                 android:maxLength="50"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="5dp"/>
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_address"
                 android:layout_alignLeft="@+id/et_address"
                 android:layout_alignTop="@+id/et_address"
@@ -161,12 +161,12 @@
                 android:maxLength="50"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_company_name"
                 android:layout_alignLeft="@+id/et_company_name"
                 android:layout_alignTop="@+id/et_company_name"
@@ -191,12 +191,12 @@
                 android:maxLength="50"
                 android:maxLines="1"
                 android:paddingBottom="5dp"
-                android:paddingLeft="20dp"
+                android:paddingLeft="30dp"
                 android:paddingTop="5dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_alignBottom="@+id/et_description"
                 android:layout_alignLeft="@+id/et_description"
                 android:layout_alignTop="@+id/et_description"
@@ -209,8 +209,8 @@
             android:id="@+id/iv_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-          android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_btn_submit" />
 
     </LinearLayout>

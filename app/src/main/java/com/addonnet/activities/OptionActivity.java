@@ -1,5 +1,6 @@
 package com.addonnet.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
 
     private Context mContext;
     private ImageView mIvSignUp, mIvLogin;
+    public static Activity mOptionActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
 
     private void bindControls() {
         mContext = this;
+        mOptionActivity = OptionActivity.this;
         mIvSignUp = (ImageView) findViewById(R.id.iv_sign_up);
         mIvLogin = (ImageView) findViewById(R.id.iv_login);
     }

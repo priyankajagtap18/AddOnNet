@@ -28,9 +28,9 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
     private Context mContext;
     private EditText mEtName, mEtEmail, mEtMobileNo, mEtAddress, mEtCompany, mEtDescription;
     private ImageView mIvSubmit;
-
     private SyncManager syncManager;
     private SyncListener syncListener;
+    private String strName, strEmail, strMobileNo;
 
     @Nullable
     @Override
@@ -100,12 +100,36 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_submit:
-                sendEnquiry();
+                if (validateFields()) {
+                    sendEnquiry();
+                }
                 break;
 
         }
     }
+    private boolean validateFields() {
+        boolean isValid;
+        strName = mEtName.getText().toString().trim();
+        strEmail = mEtEmail.getText().toString().trim();
+        strMobileNo = mEtMobileNo.getText().toString().trim();
 
+        if (Utilities.isEditTextEmpty(mEtName)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_empty_firstname));
+        } else if (Utilities.isEditTextEmpty(mEtEmail)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_empty_email));
+        } else if (Utilities.isEditTextEmpty(mEtMobileNo)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_empty_phone_no));
+        } else if (!Utilities.isEmailValid(strEmail)) {
+            isValid = false;
+            UIUtils.showToast(mContext, getString(R.string.msg_email_error));
+        } else {
+            isValid = true;
+        }
+        return isValid;
+    }
     private void sendEnquiry() {
         if (mUtilities.isOnline()) {
             mUtilities.showProgressDialog(getString(R.string.msg_please_wait));
