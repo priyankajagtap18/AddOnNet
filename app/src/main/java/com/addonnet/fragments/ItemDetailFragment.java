@@ -65,7 +65,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         mTvProductName =(TextView)mRootView.findViewById(R.id.tv_product_name);
         mIvItem = (ImageView) mRootView.findViewById(R.id.iv_item);
 
-        Utilities.setImage(mContext, products.getImageUrl(),  mIvItem);
+        Utilities.setImage(mContext, products.getImageUrl().replace(" ", "%20"),  mIvItem);
         mTvBrand.setText(products.getBrandName());
         mTvColor.setText(products.getColorName());
         mTvDescription.setText(products.getDescription());

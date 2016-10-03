@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.addonnet.R;
 import com.addonnet.activities.MainAct;
 import com.addonnet.constants.AppConstants;
+import com.addonnet.fragments.CategoryProductFragment;
 import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
@@ -89,6 +90,12 @@ public class Utilities {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void replaceFragment(String catId, String catName,FragmentActivity activity)
+    {
+        AppConstants.CAT_ID = catId;
+        replaceFragmentForCategory(activity, new CategoryProductFragment(), catName);
     }
 
     public void showProgressDialog(String message) {

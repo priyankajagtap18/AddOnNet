@@ -24,6 +24,7 @@ import com.addonnet.R;
 import com.addonnet.adapters.CategoryNameAdapter;
 import com.addonnet.constants.AppConstants;
 import com.addonnet.entities.Categories;
+import com.addonnet.fragments.CategoryFragment;
 import com.addonnet.fragments.CategoryProductFragment;
 import com.addonnet.fragments.EnquiryFragment;
 import com.addonnet.fragments.ItemDetailFragment;
@@ -47,7 +48,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     private NavigationView mNavigationView;
     private Context mContext;
     public static TextView mTvTitle;
-    private ArrayList<Categories> mAListCategory;
+    public static ArrayList<Categories> mAListCategory;
     private CategoryNameAdapter adapter;
     private RecyclerView mRvCategory;
     private TextView mTvMap, mTvUserName, mTvEmail;
@@ -112,7 +113,8 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
                     case SyncManager.GET_CATEGORY:
                         if (arrResult != null && arrResult.size() > 0) {
                             mAListCategory = ((ArrayList<Categories>) arrResult);
-                            replaceFragment(mAListCategory.get(0).getCategoryId(), mAListCategory.get(0).getCategoryName());
+                            mUtilities.replaceFragment(MainAct.this,new CategoryFragment(),R.string.category);
+                            //replaceFragment(mAListCategory.get(0).getCategoryId(), mAListCategory.get(0).getCategoryName());
                             setAdapter();
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
@@ -135,10 +137,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
         };
     }
 
-    private void replaceFragment(String catId, String catName) {
-        AppConstants.CAT_ID = catId;
-        mUtilities.replaceFragmentForCategory(MainAct.this, new CategoryProductFragment(), catName);
-    }
+
 
     private void setAdapter() {
         if (mAListCategory != null && mAListCategory.size() > 0) {
@@ -216,10 +215,13 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             Fragment myFragment = getSupportFragmentManager().findFragmentByTag(AppConstants.sTagFragment);
-            if (myFragment instanceof CategoryProductFragment) {
+            if (myFragment instanceof CategoryProductFragment  || myFragment instanceof ShowMapFragment) {
+                mUtilities.replaceFragment(this, new CategoryFragment(), R.string.category);
+            }
+            if (myFragment instanceof CategoryFragment) {
                 handleBackPress();
             }
-            if (myFragment instanceof EnquiryFragment || myFragment instanceof ItemDetailFragment || myFragment instanceof ShowMapFragment) {
+            if (myFragment instanceof EnquiryFragment || myFragment instanceof ItemDetailFragment) {
                 mUtilities.replaceFragment(this, new CategoryProductFragment(), R.string.category);
             }
         }
@@ -270,7 +272,7 @@ public class MainAct extends AppCompatActivity implements NavigationView.OnNavig
     public void getAdapterResponse(Bundle bundle) {
         String id = bundle.getString(AppConstants.KEY_CATEGORY_ID);
         String name = bundle.getString(AppConstants.KEY_CATEGORY_NAME);
-        replaceFragment(id, name);
+        mUtilities.replaceFragment(id, name,MainAct.this);
         closeDrawer();
     }
 }

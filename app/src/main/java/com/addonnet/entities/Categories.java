@@ -8,6 +8,15 @@ public class Categories
     private String CategoryId;
     private String CategoryName;
     private String StatusId;
+    private String ImageUrl;
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
+    }
 
     public String getCategoryId() {
         return CategoryId;

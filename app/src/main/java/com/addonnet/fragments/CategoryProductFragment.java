@@ -39,7 +39,7 @@ public class CategoryProductFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        mRootView = inflater.inflate(R.layout.fragment_category, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_products, container, false);
         bindControls();
         setListeners();
         initSyncListener();
