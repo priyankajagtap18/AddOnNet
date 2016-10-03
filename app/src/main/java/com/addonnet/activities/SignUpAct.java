@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.addonnet.R;
@@ -24,8 +23,7 @@ import java.util.ArrayList;
 public class SignUpAct extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
-    private TextView mTvLogin;
-    private ImageView mIvSignUp;
+    private TextView mTvLogin, mTvSignUp;
     private EditText mEtName, mEtEmail, mEtMobileNo, mEtPwd, mEtConfirmPwd;
     private SyncManager syncManager;
     private SyncListener syncListener;
@@ -45,7 +43,7 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
     private void bindControls() {
         mContext = this;
         mUtilities = new Utilities(mContext);
-        mIvSignUp = (ImageView) findViewById(R.id.iv_sign_up);
+        mTvSignUp = (TextView) findViewById(R.id.tv_sign_up);
         mTvLogin = (TextView) findViewById(R.id.tv_login);
         mEtName = (EditText) findViewById(R.id.et_full_name);
         mEtEmail = (EditText) findViewById(R.id.et_email);
@@ -55,14 +53,14 @@ public class SignUpAct extends AppCompatActivity implements View.OnClickListener
     }
 
     private void setListeners() {
-        mIvSignUp.setOnClickListener(this);
+        mTvSignUp.setOnClickListener(this);
         mTvLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_sign_up:
+            case R.id.tv_sign_up:
                 if (validateFields()) {
                     doSignUp();
                 }

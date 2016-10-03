@@ -59,4 +59,6 @@
     <string name="enquiry_sent">Enquiry sent successfully</string>
     <string name="enquiry_failed">Failed to send enquiry</string>
     <string name="signup_now">Sign up now</string>
+    <string name="submit">SUBMIT</string>
+    <string name="create_account">CREATE ACCOUNT</string>
 </resources>

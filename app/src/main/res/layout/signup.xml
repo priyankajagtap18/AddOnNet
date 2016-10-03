@@ -21,53 +21,44 @@
                 android:layout_marginTop="30dp"
                 android:src="@drawable/ic_logo" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/et_full_name"
-                        style="@style/tv_faint_black_sub_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/full_name"
-                        android:maxLength="50"
-                        android:maxLines="1"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="30dp"
-                        android:paddingTop="5dp" />
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_alignBottom="@+id/et_full_name"
-                        android:layout_alignLeft="@+id/et_full_name"
-                        android:layout_alignTop="@+id/et_full_name"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_user" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/et_full_name"
+                    style="@style/tv_faint_black_sub_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="8dp" />
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_alignBottom="@+id/et_full_name"
+                    android:layout_alignLeft="@+id/et_full_name"
+                    android:layout_alignTop="@+id/et_full_name"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_user" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/et_email"
@@ -78,9 +69,9 @@
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="30dp"
-                    android:paddingTop="5dp" />
+                    android:paddingTop="8dp" />
 
                 <ImageView
                     android:layout_width="17dp"
@@ -98,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/et_mobile_no"
@@ -109,9 +100,9 @@
                     android:hint="@string/mobile_no"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="30dp"
-                    android:paddingTop="5dp" />
+                    android:paddingTop="8dp" />
 
                 <ImageView
                     android:layout_width="17dp"
@@ -140,9 +131,9 @@
                     android:inputType="textPassword"
                     android:maxLength="40"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="30dp"
-                    android:paddingTop="5dp" />
+                    android:paddingTop="8dp" />
 
                 <ImageView
                     android:layout_width="17dp"
@@ -172,9 +163,9 @@
                     android:inputType="textPassword"
                     android:maxLength="40"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="30dp"
-                    android:paddingTop="5dp" />
+                    android:paddingTop="8dp" />
 
                 <ImageView
                     android:layout_width="17dp"
@@ -187,13 +178,12 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/iv_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/tv_sign_up"
+                style="@style/tv_title"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_btn_sign_up" />
+                android:text="@string/signup" />
 
 
             <LinearLayout

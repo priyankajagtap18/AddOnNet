@@ -24,9 +24,8 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     private Context mContext;
     private ImageView mIvItem;
     private Products products;
-    private TextView  mTvBrand, mTvColor, mTvItemWidth, mTvScreenRes, mTvHardDrive, mTvBatteryLife,
-            mTvConnectivity, mTvDescription, mTvProductName;
-    private ImageView mIvEnquiry;
+    private TextView mTvBrand, mTvColor, mTvItemWidth, mTvScreenRes, mTvHardDrive, mTvBatteryLife,
+            mTvConnectivity, mTvDescription, mTvProductName, mTvEnquiry;
 
     @Nullable
     @Override
@@ -53,7 +52,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     private void bindControls() {
         mContext = getActivity();
         mUtilities = new Utilities(mContext);
-        mIvEnquiry = (ImageView) mRootView.findViewById(R.id.iv_enquiry);
+        mTvEnquiry = (TextView) mRootView.findViewById(R.id.tv_enquiry);
         mTvBrand = (TextView) mRootView.findViewById(R.id.tv_brand);
         mTvColor = (TextView) mRootView.findViewById(R.id.tv_color);
         mTvItemWidth = (TextView) mRootView.findViewById(R.id.tv_item_width);
@@ -62,10 +61,10 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         mTvBatteryLife = (TextView) mRootView.findViewById(R.id.tv_battery_life);
         mTvConnectivity = (TextView) mRootView.findViewById(R.id.tv_connectivity);
         mTvDescription = (TextView) mRootView.findViewById(R.id.tv_description);
-        mTvProductName =(TextView)mRootView.findViewById(R.id.tv_product_name);
+        mTvProductName = (TextView) mRootView.findViewById(R.id.tv_product_name);
         mIvItem = (ImageView) mRootView.findViewById(R.id.iv_item);
 
-        Utilities.setImage(mContext, products.getImageUrl().replace(" ", "%20"),  mIvItem);
+        Utilities.setImage(mContext, products.getImageUrl().replace(" ", "%20"), mIvItem);
         mTvBrand.setText(products.getBrandName());
         mTvColor.setText(products.getColorName());
         mTvDescription.setText(products.getDescription());
@@ -73,13 +72,13 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     }
 
     private void setListeners() {
-        mIvEnquiry.setOnClickListener(this);
+        mTvEnquiry.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_enquiry:
+            case R.id.tv_enquiry:
                 mUtilities.replaceFragment(getActivity(), new EnquiryFragment(), R.string.enquiry);
                 break;
         }

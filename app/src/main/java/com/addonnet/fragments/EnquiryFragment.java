@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.addonnet.R;
 import com.addonnet.entities.EnquiryAddUpd;
@@ -27,7 +27,7 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
     private Utilities mUtilities;
     private Context mContext;
     private EditText mEtName, mEtEmail, mEtMobileNo, mEtAddress, mEtCompany, mEtDescription;
-    private ImageView mIvSubmit;
+    private TextView mTvSubmit;
     private SyncManager syncManager;
     private SyncListener syncListener;
     private String strName, strEmail, strMobileNo;
@@ -82,7 +82,7 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
     private void bindControls() {
         mContext = getActivity();
         mUtilities = new Utilities(mContext);
-        mIvSubmit = (ImageView) mRootView.findViewById(R.id.iv_submit);
+        mTvSubmit = (TextView) mRootView.findViewById(R.id.tv_submit);
         mEtName = (EditText) mRootView.findViewById(R.id.et_full_name);
         mEtEmail = (EditText) mRootView.findViewById(R.id.et_email);
         mEtMobileNo = (EditText) mRootView.findViewById(R.id.et_mobile_no);
@@ -93,13 +93,13 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setListeners() {
-        mIvSubmit.setOnClickListener(this);
+        mTvSubmit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_submit:
+            case R.id.tv_submit:
                 if (validateFields()) {
                     sendEnquiry();
                 }

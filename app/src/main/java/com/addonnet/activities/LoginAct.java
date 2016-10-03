@@ -44,8 +44,8 @@ import java.util.List;
 public class LoginAct extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private Context mContext;
-    private TextView mTvForgetPwd, mTvSignUp;
-    private ImageView mIvLogin, mIvBtnFBLogin, mIvBtnGLogin;
+    private TextView mTvForgetPwd, mTvSignUp, mTvLogin;
+    private ImageView mIvBtnFBLogin, mIvBtnGLogin;
     private SimpleFacebook mSimpleFacebook;
     private SimpleFacebookConfiguration configuration;
     private Permission[] permissions;
@@ -73,7 +73,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         mLoginActivity = LoginAct.this;
         mUtilities = new Utilities(mContext);
         FacebookSdk.sdkInitialize(mContext);
-        mIvLogin = (ImageView) findViewById(R.id.iv_login);
+        mTvLogin = (TextView) findViewById(R.id.tv_login);
         mTvForgetPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         mTvSignUp = (TextView) findViewById(R.id.tv_signup);
         mEtEmail = (EditText) findViewById(R.id.et_email);
@@ -89,7 +89,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void setListeners() {
-        mIvLogin.setOnClickListener(this);
+        mTvLogin.setOnClickListener(this);
         mTvForgetPwd.setOnClickListener(this);
         mTvSignUp.setOnClickListener(this);
         mIvBtnFBLogin.setOnClickListener(this);
@@ -99,7 +99,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_login:
+            case R.id.tv_login:
                 if (validateFields()) {
                     doLogin();
                 }

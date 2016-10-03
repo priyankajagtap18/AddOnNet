@@ -21,8 +21,8 @@
                 android:id="@+id/iv_item"
                 android:layout_width="310dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:src="@mipmap/ic_launcher" />
 
             <RelativeLayout
@@ -323,13 +323,12 @@
             android:text="" />
 
 
-        <ImageView
-            android:id="@+id/iv_enquiry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_enquiry"
+            style="@style/tv_title"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_btn_enquiry" />
+            android:text="@string/enquiry" />
 
     </LinearLayout>
 </ScrollView>

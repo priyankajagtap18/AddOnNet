@@ -35,9 +35,9 @@
                 android:hint="@string/full_name"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
@@ -67,9 +67,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
@@ -100,9 +100,9 @@
                 android:inputType="number"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
@@ -130,13 +130,13 @@
                 android:hint="@string/address"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
-                android:layout_height="17dp"
+                android:layout_height="21dp"
                 android:layout_alignBottom="@+id/et_address"
                 android:layout_alignLeft="@+id/et_address"
                 android:layout_alignTop="@+id/et_address"
@@ -160,9 +160,9 @@
                 android:hint="@string/company_name"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
@@ -190,9 +190,9 @@
                 android:hint="@string/enq_description"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:paddingBottom="5dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="30dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="8dp" />
 
             <ImageView
                 android:layout_width="17dp"
@@ -205,13 +205,12 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/iv_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_submit"
+            style="@style/tv_title"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_btn_submit" />
+            android:text="@string/submit" />
 
     </LinearLayout>
 </ScrollView>
