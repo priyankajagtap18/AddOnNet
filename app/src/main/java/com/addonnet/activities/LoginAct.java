@@ -155,6 +155,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             PreferenceHandler.writeBoolean(mContext, AppConstants.sKeyIsLoggedIn, true);
             PreferenceHandler.writeString(mContext, AppConstants.sKeyName, userDetail.getName());
             PreferenceHandler.writeString(mContext, AppConstants.sKeyEmail, userDetail.getEmail());
+            if(userDetail.getMobile()!=null || userDetail.getMobile().equalsIgnoreCase(""))
+            PreferenceHandler.writeString(mContext, AppConstants.sKeyMobile, userDetail.getMobile());
             startActivity(new Intent(LoginAct.this, MainAct.class));
             finish();
         } else {

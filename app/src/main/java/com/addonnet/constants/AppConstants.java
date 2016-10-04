@@ -10,6 +10,7 @@ public class AppConstants
     public static String sTagFragment;
     public static String sKeyUserName = "username";
     public static String sKeyPassword = "password";
+    public static String sKeyMobile="mobile";
 
     private Context context;
     private static AppConstants sDataControllerInstance;

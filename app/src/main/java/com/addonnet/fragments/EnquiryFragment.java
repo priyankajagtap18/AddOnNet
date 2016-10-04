@@ -11,9 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.addonnet.R;
+import com.addonnet.constants.AppConstants;
 import com.addonnet.entities.EnquiryAddUpd;
 import com.addonnet.sync.SyncListener;
 import com.addonnet.sync.SyncManager;
+import com.addonnet.utils.PreferenceHandler;
 import com.addonnet.utils.UIUtils;
 import com.addonnet.utils.Utilities;
 
@@ -90,7 +92,9 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
         mEtCompany = (EditText) mRootView.findViewById(R.id.et_company_name);
         mEtDescription = (EditText) mRootView.findViewById(R.id.et_description);
 
-
+        mEtName.setText(PreferenceHandler.readString(getActivity(),AppConstants.sKeyName,""));
+        mEtEmail.setText(PreferenceHandler.readString(getActivity(),AppConstants.sKeyEmail,""));
+        mEtMobileNo.setText(PreferenceHandler.readString(getActivity(),AppConstants.sKeyMobile,""));
     }
 
     private void setListeners() {
