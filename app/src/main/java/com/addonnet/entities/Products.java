@@ -19,6 +19,15 @@ public class Products implements Serializable
     private String ColorName;
     private String StatusId;
     private String ImageUrl;
+    private String  Status;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 
     public String getProductId() {
         return ProductId;

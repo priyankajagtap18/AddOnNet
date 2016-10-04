@@ -78,8 +78,12 @@ public class CategoryProductFragment extends Fragment implements View.OnClickLis
                 switch (taskId) {
                     case SyncManager.GET_PRODUCT:
                         if (arrResult != null && arrResult.size() > 0) {
-                            mAListProducts =((ArrayList<Products>)arrResult);
-                            setAdapter();
+                            if (((ArrayList<Products>) arrResult).get(0).getStatus().equalsIgnoreCase("false")) {
+                                Utilities.showToast(getActivity(), "Records not available");
+                            } else {
+                                mAListProducts = ((ArrayList<Products>) arrResult);
+                                setAdapter();
+                            }
                         } else {
                             onSyncFailure(taskId, getString(R.string.server_error));
                         }

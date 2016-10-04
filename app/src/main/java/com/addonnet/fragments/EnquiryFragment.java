@@ -90,6 +90,7 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
         mEtCompany = (EditText) mRootView.findViewById(R.id.et_company_name);
         mEtDescription = (EditText) mRootView.findViewById(R.id.et_description);
 
+
     }
 
     private void setListeners() {
